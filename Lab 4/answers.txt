@@ -1,0 +1,49 @@
+# Fill in your name, student ID, and email address in this file.
+# If you are working in a team, fill out the information for both team 
+# members.
+
+# SUBMIT THE LAB ONLY ONCE (from only one partner). This file will be
+# automatically parsed in order to give both team members credit for the
+# lab.
+
+# You need to fill in the EXERCISE sections describing your solutions
+# for Tasks 1, 2, and 3, as well as write the corresponding code.
+# If you did one or more extra credit problems, indicate which one in the
+# appropriate section below (remove the # sign first). If you have any other
+# information you'd like us to know, please add it at the end of the file.
+
+# Partner 1
+Name: Vu Le
+Student ID: 004497690 
+Email: lvu1991@yahoo.com
+
+# Partner 2 (if you're working in a team) No
+Name: 
+Student ID: 
+Email: 
+
+# EXERCISE 1: What method you used to make your peer download and upload
+#    files in parallel?  (~1-3 sentences)
+I implemented concurrency by forking processes. First, the child processes download files in parallel. When they are done downloading, they will upload files in parallel.
+
+# EXERCISE 2A: What conditions did you find and fix that would have
+#    triggered a buffer overrun bug?  (~1-3 sentences each)
+The function strcpy() can cause buffer overflow when the file name is longer than the size of the destination buffer.
+I fix the bug by replacing it with the function strncpy, which passes as an argument the number of characters to be copied. 
+In case the source string is longer than the specified number of character, the destination string is not null terminated. So I set the last character of the destination string
+to the null character to make it easier for read and copy later.
+I found and fixed this bug in 2 functions: start_download() and task_download().
+
+# EXERCISE 2B: What other robustness problems did you fix?  (~1-3 sentences
+#    each)
+1) To make sure the peer serves files inside the current directory, I check the filename to see if it contains '/' character. The '/' character shows that the file is outside the 
+current directory. The function outputs an error message and exits if it finds '/' character in the filename.
+I also check to make sure the filename passed by the peer is not too long, the current directory and the file path are correct, and the file exists.
+
+2) To prevent an indefinite file transfer, I set the maximum file capacity to be 128MB. In the function task_download(), if the total number of bytes transferred exceeds the 
+maximum file capacity, it won't download the file. It also makes sure that a peer won't fill up another peer's disk.
+
+3) To ensure many peers can log in at the same time, I increase the TASKBUFSIZ. When the buffer size is larger, it can hold more peers at once without affecting communications with
+the tracker.  
+
+# Add any other information you'd like us to know below this line.

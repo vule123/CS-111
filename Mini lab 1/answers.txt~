@@ -1,0 +1,38 @@
+Name: Vu Le
+UCLA ID: 004497690
+
+
+-------------------------------------------------------------------------------
+
+Exercise 1:
+Yes. Before schedule() is called, %eax register has been loaded with the correct pid of the current process. When schedule() is called, it runs a loop to call all runnable processes, which will overwrite the value in %eax. However, $eax is copied into the process descriptor in the kernel during context switch. When sys_get_pid() runs again, it will get the correct pid from the process descriptor.
+
+Exercise 2:
+Implemented do_fork() and copy_stack() functions in mpos_kern.c
+
+Exercise 3:
+Modified 2 cases: INT_SYS_EXIT and INT_SYS_WAIT in the interrupt function in mpos_kern.c
+
+Adding a field called "wait_queue" to the process descriptor structure. While a process has not exitted, we set its state to P_BLOCKED to put it to sleep and store its pid in "wait_queue". When the process exits, we awake the process by setting its state to P_RUNNABLE and store its exit status in the waiting process' eax register.
+
+Exercise 4:
+Setting the process' state to P_EMPTY when the process has successfully exitted for reuse purpose. I did this in the cases INT_SYS_EXIT and INT_SYS_WAIT in the interrupt function.    
+
+Anything else you'd like us to know:
+No
+
+Extra credit exercises:
+Exercise 6:
+Below are added lines:
+      mpos.h, line 13: Define constant INT_SYS_NEW_THREAD
+      mpos-app.h, lines 177-186: Define function sys_newthread(void(*start_function)(void))
+      mpos-kern.c, line 119: Declare function make_new_thread
+      mpos-kern.c, lines 210-212: Handle the case INT_SYS_NEW_THREAD
+      mpos-kern.c, lines 388-407: Define function make_new_thread that returns the pid of the new thread
+
+Exercise 7:
+Below are added lines:
+      mpos.h, line 14: Define constant INT_SYS_KILL
+      mpos-app.h, lines 199-208: Define function sys_kill(pid)
+      mpos-kern.c, lines 214-236: Handle the case INT_SYS_KILL
+      mpos-app2.c, lines 63-72: Make even-numbered processes kill odd-numbered processes

@@ -1,0 +1,69 @@
+Name: Vu Le
+UCLA ID: 004497690
+
+Collaborators: No
+
+-------------------------------------------------------------------------------
+
+Response to Exercise 1:
+
+The name of the scheduling algorithm is: Non-preemptive Scheduling
+Each process executes until its completion and yields control back to the kernel. Then the scheduler will give CPU to the next runnable process. There is no pre-allocate time slice and no preemption for each process.
+
+
+(Exercise 2 is a coding exercise)
+
+
+Response to Exercise 3:
+
+Turnaround time for each process for scheduling_algoritm 0:
+process 1: 319 * 4 + 1 = 1277 ms
+process 2: 319 * 4 + 2 = 1278 ms
+process 3: 319 * 4 + 3 = 1279 ms
+process 4: 319 * 4 + 4 = 1280 ms
+Average turnaround time for scheduling_algorithm 0: (1277 + 1278 + 1279 + 1280)/4 = 1278.5 ms
+
+Turnaround time for each process for scheduling algorithm 1:
+process 1: 320 ms
+process 2: 640 ms
+process 3: 960 ms
+process 4: 1280 ms
+Average turnaround time for scheduling_algorithm 1: (320 + 640 + 960 + 1280)/4 = 800 ms
+
+Wait time for each process for scheduling_algoritm 0:
+process 1: 0 ms
+process 2: 1 ms
+process 3: 2 ms 
+process 4: 3 ms
+Average wait time for scheduling_algorithm 0: (0 + 1 + 2 + 3)/4 = 1.5 ms
+
+Wait time for each process for scheduling_algorithm 1:
+process 1: 0 ms
+process 2: 320 ms
+process 3: 640 ms 
+process 4: 960 ms
+Average wait time for scheduling_algorithm 1: (0 + 320 + 640 + 960)/4 = 480 ms
+
+
+Exercise 4:
+
+Did you complete Exercise 4A, Exercise 4B, or both for extra credit?
+I completed both Exercise 4A and Exercise 4B
+
+Exercise 5:
+From the beginning of the output, we have: 1234 1234 1234 1234 1231 2341
+The first known timer interrupt occured during process 4. The four processes were able to print their corresponding numbers for the first 4 cycles. In the 5th cycle, process 4 couldn't print number 4. 
+
+
+(Exercise 6 is a coding exercise)
+I implemented a system call sys_print() to atomically print chracters to the console because interrupts are disabled in the kernel space.
+
+Anything else you'd like us to know: No
+
+
+
+Extra credit exercises:
+Exercise 8:
+I implemented 2 different synchronization mechanisms for exercise 6 and 8:
+1. Implement a system call sys_print() to print characters (for ex. 6)
+2. Implement a lock for atomic access to the shared variable cursorpos. The lock can be activated by defining CHANGE_SYNC preprocessor symbol in schedos-1.c (for ex. 8)
